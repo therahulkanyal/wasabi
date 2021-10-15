@@ -1,10 +1,11 @@
 #![no_std]
-#![feature(lang_items)]
 #![feature(start)]
 
-#[lang="panic_fmt"]
-extern fn panic_fmt(_: ::core::fmt::Arguments, _: &'static str, _: u32) -> ! {
-  loop {}
+use core::panic::PanicInfo;
+
+#[panic_handler]
+fn panic(_info: &PanicInfo) -> ! {
+    loop {}
 }
 
 // cannot use #![no_main] due to Fatal error "Unknown start function: `$main`" (I suspect something in the wasm assembler)
